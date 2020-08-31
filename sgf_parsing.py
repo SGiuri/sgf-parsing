@@ -25,8 +25,33 @@ class SgfTree:
         return not self == other
 
 
+import re
+
+
 def parse(input_string):
+    '''
+    input_string = "(;A[b]C[d])"    -->
+            SgfTree(properties={"A": ["b"], "C": ["d"]})
+    input_string = "(;A[b][c][d])"  -->
+            SgfTree(properties={"A": ["b", "c", "d"]})
+    input_string = "(;A[B](;B[C])(;C[D]))"
+            SgfTree(
+            properties={"A": ["B"]},
+            children=[SgfTree({"B": ["C"]}), SgfTree({"C": ["D"]})],
+            )
 
+    (;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))
+    '''
+    pattern = re.compile(r'\(;\w+\[\w+\]')
 
+    matches = pattern.finditer(input_string)
+
+    for match in matches:
+        print(match)
 
     pass
+
+
+input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
+
+parse(input_string)
