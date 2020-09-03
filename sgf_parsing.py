@@ -56,7 +56,7 @@ def parse(input_string):
         print(match[0
               ])
     pass
-
+# modifica dal Dell
 
 #input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
 input_string = "(;A[B](;B[C][D])(;C[D]))"
