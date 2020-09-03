@@ -42,16 +42,21 @@ def parse(input_string):
 
     (;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))
     '''
-    pattern = re.compile(r'\(;\w+\[\w+\]')
+    pattern_par1 = re.compile(r'\(.+\.+?\).?\)')
+    pattern_par2 = re.compile(r'\)')
+    pattern = re.compile(r';(\w+)\[(\w+)\]')
 
-    matches = pattern.finditer(input_string)
+    matches_par1 = pattern_par1.finditer(input_string)
+    matches_par2 = pattern.finditer(input_string)
 
-    for match in matches:
+    for match in matches_par1:
         print(match)
-
+    for match in matches_par2:
+        print(match[0
+              ])
     pass
 
 
-input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
-
+#input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
+input_string = "(;A[B](;B[C][D])(;C[D]))"
 parse(input_string)
