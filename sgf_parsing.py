@@ -58,6 +58,9 @@ def parse(input_string):
     pass
 # modifica dal Dell
 # modifica dal fisso
+# e questac???'
+
+
 #input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
 input_string = "(;A[B](;B[C][D])(;C[D]))"
 parse(input_string)
