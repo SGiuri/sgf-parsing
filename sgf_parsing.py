@@ -24,6 +24,7 @@ class SgfTree:
     def __ne__(self, other):
         return not self == other
 
+# Piccola modifica
 
 import re
 
