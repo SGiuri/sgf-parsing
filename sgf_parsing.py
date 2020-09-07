@@ -24,6 +24,7 @@ class SgfTree:
     def __ne__(self, other):
         return not self == other
 
+
 # Piccola modifica
 
 import re
@@ -43,9 +44,10 @@ def parse(input_string):
 
     (;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))
     '''
+
     pattern_par1 = re.compile(r'\(.+\.+?\).?\)')
     pattern_par2 = re.compile(r'\)')
-    pattern = re.compile(r';(\w+)\[(\w+)\]')
+    pattern = re.compile(r';([A-Z]+(\[[A-Za-z]+\])+)')
 
     matches_par1 = pattern_par1.finditer(input_string)
     matches_par2 = pattern.finditer(input_string)
@@ -53,17 +55,21 @@ def parse(input_string):
     father = re.compile(r'^\(?;([A-Z]+(\[[A-Za-z]\])+)\)?')
     matches_father = father.finditer(input_string)
     children = father.sub("",input_string)
-
+    # modifica
     print(children)
     for match in matches_father:
         print(match[1])
 
     pass
+
+
+
 # modifica dal Dell
 # modifica dal fisso
 # e questac???'
 
 
-#input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
+# input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
 input_string = "(;A[B](;B[C][D])(;C[D]))"
+print(input_string)
 parse(input_string)
