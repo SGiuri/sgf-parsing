@@ -121,12 +121,18 @@ def node_parse(single_node):
     :return: Doctionary: {AA: [bb, cc], BB:[dd,n]}
     '''
     import re
+    single_property_parse = re.compile(r"[A-Za-z]+(\[[a-z0-9]+\])+")
+    single_property = re.finditer(single_property_parse, single_node)
+    for j in single_property:
+        print(j[0])
+
     property_pattern = re.compile(r"^([A-Z]+)")
     value_pattern = re.compile(r"\[([a-z0-9]+)\]")
-    for a in re.findall(property_pattern, s):
+
+    for a in re.findall(property_pattern, single_node):
         print(a)
 
-    for a in re.findall(value_pattern, s):
+    for a in re.findall(value_pattern, single_node):
         print(a)
     '''for line in input_string:
         parse(line)'''
@@ -145,7 +151,7 @@ input_string = ["(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))",
                 "(;A[\\]b\nc\nd\t\te \n\\]])"]
 
 
-print(node_parse("AA[bb][cc][4]"))
+print(node_parse("AA[bb][cc][4]BB[dd][ee][4]"))
 
 
 
