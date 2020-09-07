@@ -49,11 +49,12 @@ def parse(input_string):
     matches_father = first_occurence.finditer(input_string)
     children = first_occurence.sub("", input_string)
     # modifica
-    print(input_string,children)
+    print(input_string, children)
     for match in matches_father:
         print(match[2])
 
     pass
+
 
 '''
 
@@ -84,6 +85,7 @@ def parse(input_string):
     for node in nodes:
         print(f"node= {node[0]}")
 '''
+
 
 def find_parentheses(s):
     """ Find and return the location of the matching parentheses pairs in s.
@@ -120,36 +122,46 @@ def node_parse(single_node):
     :param single_node: a string like "AA[bb][cc]BB[dd][n]"
     :return: Doctionary: {AA: [bb, cc], BB:[dd,n]}
     '''
-    import re
+    # recognizing single property
+    # "AA[bb][cc]BB[dd][n]" --> ["AA[bb][cc]" , "BB[dd][n]"]
     single_property_pattern = re.compile(r"[A-Za-z]+(\[[a-z0-9]+\])+")
-    single_property = re.finditer(single_property_pattern, single_node)
+    # fiding iteration inside node
+    single_properties = re.finditer(single_property_pattern, single_node)
 
-    for property_block in single_property:
-        prop_str = str(property_block[0])
-        print("prop_block = ",prop_str)
-        single_property_parse(property_block[0])
+    # for each iteration loocking for property and values:
+    property_and_values = {}
+    for property_block in single_properties:
+        prop, value = single_property_parse(property_block[0])
 
+        property_and_values[prop] = value
 
-    pass
-
-
+    return property_and_values
 
 
 def single_property_parse(single_property):
-    import re
+    """
+
+    :param single_property: a single property block like AA[bb][cc][4]
+    :return: a tuple containig the property and a list of values
+    AA[bb][cc][4] --> (AA, [bb,cc,4])
+    """
+
+    # loocking for the property
     property_pattern = re.compile(r"^([A-Z]+)")
     property = re.finditer(property_pattern, single_property)
     for prop in property:
-        print("prop=",prop[0])
+        property_name = prop[0]
 
+    # loocking for values:
+    values = []
     values_pattern = re.compile(r"\[([a-z0-9]+)\]")
-    value = re.finditer(values_pattern, single_property)
-    for val in value:
-        print("val= ",val[0])
+    values_iteration = re.finditer(values_pattern, single_property)
 
-    pass
-    '''for line in input_string:
-        parse(line)'''
+    # appending each value in values list
+    for val in values_iteration:
+        values.append(val[1])
+
+    return property_name, values
 
 
 # input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
@@ -164,11 +176,8 @@ input_string = ["(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))",
                 "(;A[b][c][d])",
                 "(;A[\\]b\nc\nd\t\te \n\\]])"]
 
-
 print(node_parse("AA[bb][cc][4]BB[dd][ee][4]"))
 
 print(single_property_parse("AA[bb][cc][4]"))
 
 s = "AA[bb][cc][4]"
-
-
