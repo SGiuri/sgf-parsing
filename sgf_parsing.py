@@ -45,36 +45,15 @@ def parse(input_string):
     (;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))
     '''
 
-    pattern_par1 = re.compile(r'\(.+\.+?\).?\)')
-    pattern_par2 = re.compile(r'\)')
-    pattern = re.compile(r';([A-Z]+(\[[A-Za-z]+\])+)')
-
-    matches_par1 = pattern_par1.finditer(input_string)
-    matches_par2 = pattern.finditer(input_string)
-
-    father = re.compile(r'^\(?;([A-Z]+(\[[A-Za-z]\])+)\)?')
-    matches_father = father.finditer(input_string)
-    children = father.sub("",input_string)
+    first_occurence = re.compile(r'^(\()?;([A-Z]+(\[[A-Za-z0-9]+\])+)\)?')
+    matches_father = first_occurence.finditer(input_string)
+    children = first_occurence.sub("", input_string)
     # modifica
-    print(children)
+    print(input_string,children)
     for match in matches_father:
-        print(match[1])
+        print(match[2])
 
     pass
-
-
-
-# modifica dal Dell
-# modifica dal fisso
-# e questac???'
-
-
-# input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
-input_string = "(;A[B](;B[C][D])(;C[D]))"
-print(input_string)
-parse(input_string)
-
-
 
 '''
 
@@ -104,17 +83,7 @@ parse(input_string)
     print(f"\nparsing: {input_string}")
     for node in nodes:
         print(f"node= {node[0]}")
-"""
-    pass
-
-
-# modifica dal Dell
-# modifica dal fisso
-# e questac???'
-
-
-# parse(line)
-
+'''
 
 def find_parentheses(s):
     """ Find and return the location of the matching parentheses pairs in s.
@@ -145,8 +114,27 @@ def find_parentheses(s):
     return parentheses_locs
 
 
+def node_parse(single_node):
+    '''
+
+    :param single_node: a string like "AA[bb][cc]BB[dd][n]"
+    :return: Doctionary: {AA: [bb, cc], BB:[dd,n]}
+    '''
+    import re
+    property_pattern = re.compile(r"^([A-Z]+)")
+    value_pattern = re.compile(r"\[([a-z0-9]+)\]")
+    for a in re.findall(property_pattern, s):
+        print(a)
+
+    for a in re.findall(value_pattern, s):
+        print(a)
+    '''for line in input_string:
+        parse(line)'''
+
+
 # input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
-input_string = ["(;A[B](;B[C][D])(;C[D]))",
+input_string = ["(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))",
+                "(;A[B](;B[C][D])(;C[D]))",
                 "(;A[B])",
                 "(;A[b]C[d])",
                 "(;a[b])",
@@ -157,6 +145,10 @@ input_string = ["(;A[B](;B[C][D])(;C[D]))",
                 "(;A[\\]b\nc\nd\t\te \n\\]])"]
 
 
-for line in input_string:
-    parse(line)
-'''
+print(node_parse("AA[bb][cc][4]"))
+
+
+
+s = "AA[bb][cc][4]"
+
+
