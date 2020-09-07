@@ -121,19 +121,33 @@ def node_parse(single_node):
     :return: Doctionary: {AA: [bb, cc], BB:[dd,n]}
     '''
     import re
-    single_property_parse = re.compile(r"[A-Za-z]+(\[[a-z0-9]+\])+")
-    single_property = re.finditer(single_property_parse, single_node)
-    for j in single_property:
-        print(j[0])
+    single_property_pattern = re.compile(r"[A-Za-z]+(\[[a-z0-9]+\])+")
+    single_property = re.finditer(single_property_pattern, single_node)
 
+    for property_block in single_property:
+        prop_str = str(property_block[0])
+        print("prop_block = ",prop_str)
+        single_property_parse(property_block[0])
+
+
+    pass
+
+
+
+
+def single_property_parse(single_property):
+    import re
     property_pattern = re.compile(r"^([A-Z]+)")
-    value_pattern = re.compile(r"\[([a-z0-9]+)\]")
+    property = re.finditer(property_pattern, single_property)
+    for prop in property:
+        print("prop=",prop[0])
 
-    for a in re.findall(property_pattern, single_node):
-        print(a)
+    values_pattern = re.compile(r"\[([a-z0-9]+)\]")
+    value = re.finditer(values_pattern, single_property)
+    for val in value:
+        print("val= ",val[0])
 
-    for a in re.findall(value_pattern, single_node):
-        print(a)
+    pass
     '''for line in input_string:
         parse(line)'''
 
@@ -153,7 +167,7 @@ input_string = ["(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))",
 
 print(node_parse("AA[bb][cc][4]BB[dd][ee][4]"))
 
-
+print(single_property_parse("AA[bb][cc][4]"))
 
 s = "AA[bb][cc][4]"
 
