@@ -50,11 +50,14 @@ def parse(input_string):
     matches_par1 = pattern_par1.finditer(input_string)
     matches_par2 = pattern.finditer(input_string)
 
-    for match in matches_par1:
-        print(match)
-    for match in matches_par2:
-        print(match[0
-              ])
+    father = re.compile(r'^\(?;([A-Z]+(\[[A-Za-z]\])+)\)?')
+    matches_father = father.finditer(input_string)
+    children = father.sub("",input_string)
+
+    print(children)
+    for match in matches_father:
+        print(match[1])
+
     pass
 # modifica dal Dell
 # modifica dal fisso
