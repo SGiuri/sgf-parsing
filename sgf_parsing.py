@@ -73,3 +73,90 @@ def parse(input_string):
 input_string = "(;A[B](;B[C][D])(;C[D]))"
 print(input_string)
 parse(input_string)
+
+
+
+'''
+
+    # loocking for apen-close parentesys match:
+    parentesys = sorted([(k, v) for k, v in find_parentheses(input_string).items()])
+
+    # each parentesys group identifies a node, if one node is inside one onother it
+    # identify a children:
+    nodes = [input_string[
+             parentesys[j][0]+1:parentesys[j][1]] for j in range(len(parentesys))]
+    print(nodes)
+
+
+
+
+
+
+    """pattern_node = re.compile(r'(?<=;)([A-Z]+(\[[A-Za-z]+\])+)')
+    nidification_pattern = re.compile(r'\(.+(\(.+\))?\)')
+    pattern_par2 = re.compile(r'\)')
+    pattern = re.compile(r';(\w+)\[(\w+)\]')
+
+    nodes = pattern_node.finditer(input_string)
+
+    nidification = nidification_pattern.finditer(input_string)
+    matches_par2 = pattern.finditer(input_string)
+    print(f"\nparsing: {input_string}")
+    for node in nodes:
+        print(f"node= {node[0]}")
+"""
+    pass
+
+
+# modifica dal Dell
+# modifica dal fisso
+# e questac???'
+
+
+# parse(line)
+
+
+def find_parentheses(s):
+    """ Find and return the location of the matching parentheses pairs in s.
+
+    Given a string, s, return a dictionary of start: end pairs giving the
+    indexes of the matching parentheses in s. Suitable exceptions are
+    raised if s contains unbalanced parentheses.
+
+    """
+
+    # The indexes of the open parentheses are stored in a stack, implemented
+    # as a list
+
+    stack = []
+    parentheses_locs = {}
+    for i, c in enumerate(s):
+        if c == '(':
+            stack.append(i)
+        elif c == ')':
+            try:
+                parentheses_locs[stack.pop()] = i
+            except IndexError:
+                raise IndexError('Too many close parentheses at index {}'
+                                 .format(i))
+    if stack:
+        raise IndexError('No matching close parenthesis to open parenthesis '
+                         'at index {}'.format(stack.pop()))
+    return parentheses_locs
+
+
+# input_string = "(;FF[4](;B[aa];W[ab])(;B[dd];W[ee]))"
+input_string = ["(;A[B](;B[C][D])(;C[D]))",
+                "(;A[B])",
+                "(;A[b]C[d])",
+                "(;a[b])",
+                "(;Aa[b])",
+                "(;A[B];B[C])",
+                "(;A[B](;B[C])(;C[D]))",
+                "(;A[b][c][d])",
+                "(;A[\\]b\nc\nd\t\te \n\\]])"]
+
+
+for line in input_string:
+    parse(line)
+'''
